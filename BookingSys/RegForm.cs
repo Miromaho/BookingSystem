@@ -17,6 +17,7 @@ namespace BookingSys
 
         public void RegisterButton_Click(object sender, EventArgs e) 
                         => _db.MiniRegisterCheck(this);
+
         private void PassCheck_CheckedChanged(object sender, EventArgs e)
         {
             if (PassCheck.Checked)
@@ -24,6 +25,7 @@ namespace BookingSys
             else
                 Password.UseSystemPasswordChar = false;
         }
+
         private void ToAutForm_LinkClicked_1(object sender, EventArgs e)
         {
             this.Hide();
@@ -33,6 +35,6 @@ namespace BookingSys
 
         private void RegForm_FormClosed(object sender, FormClosedEventArgs e) 
                         => Application.Exit();
-        
+
     }
 }

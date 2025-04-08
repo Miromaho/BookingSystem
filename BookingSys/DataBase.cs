@@ -105,7 +105,7 @@ namespace BookingSys
                 return false;
             }
         }
-        //------------------Код для формы авторизации пользователя------------------------
+        //------------------Код для формы авторизации пользователя-------------------------
         private bool AuthorizeUser(string loginOrEmail, string autpass)
         {
             bool isAuthorized = false;
