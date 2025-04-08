@@ -221,7 +221,7 @@ namespace BookingSys
 
                     if (result > 0)
                     {
-                        MessageBox.Show($"Аудитория {selectedRoomId} забронированна!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Аудитория забронированна!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
