@@ -145,8 +145,9 @@
             Controls.Add(ClassroomsList);
             Controls.Add(label2);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "BookingForm";
-            Text = "BookingForm";
+            Text = "Бронирование аудиторий";
             FormClosed += BookingForm_FormClosed;
             ResumeLayout(false);
         }

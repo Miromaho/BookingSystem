@@ -167,8 +167,10 @@
             Controls.Add(RegisterButton);
             Controls.Add(label1);
             ForeColor = SystemColors.ActiveCaptionText;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "RegForm";
-            Text = "Register";
+            Text = "Регистрация";
             TransparencyKey = SystemColors.ButtonHighlight;
             FormClosed += RegForm_FormClosed;
             ResumeLayout(false);

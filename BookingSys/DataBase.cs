@@ -11,13 +11,16 @@ using Microsoft.VisualBasic.ApplicationServices;
 using Microsoft.VisualBasic.Logging;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace BookingSys
 {
     public class DataBase
     {
+        private LessonEvent _le = new LessonEvent();
+
         internal string ConnectToDB = @"Data Source=DESKTOP-D6PEI4T;Initial Catalog=BookingSystem;Integrated Security=True;TrustServerCertificate=True";
-        
+
         //------------------Код для формы регистрации пользователя------------------------
         private SqlDataAdapter QueryExecute(string query)
         {
@@ -73,12 +76,12 @@ namespace BookingSys
 
             if (string.IsNullOrEmpty(reglogin) || string.IsNullOrEmpty(regpassword) || string.IsNullOrEmpty(regmail))
             {
-                MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (!ValidEmail(regmail))
             {
-                MessageBox.Show("Ваш адрес электронной почты указан неверно", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ваш адрес электронной почты указан неверно", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (IsUserExists(reglogin))
@@ -130,8 +133,7 @@ namespace BookingSys
                                 isAuthorized = true;
                                 CurrentUser.UserId = reader.GetInt32(0);
                                 CurrentUser.UserName = reader.GetString(1);
-                                MessageBox.Show("Вход выполнен успешно!", "Успех",
-                                               MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show("Вход выполнен успешно!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                     }
@@ -202,7 +204,7 @@ namespace BookingSys
 
                 if (bookingDate < DateTime.Today)
                 {
-                    MessageBox.Show("Нельзя бронировать аудиторию на прошедшую дату", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Вы не можете бронировать аудиторию на прошедшую дату", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -222,6 +224,7 @@ namespace BookingSys
                     if (result > 0)
                     {
                         MessageBox.Show("Аудитория забронированна!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        _le.UpdateBookingStatus(form, this);
                     }
                 }
             }
@@ -254,7 +257,7 @@ namespace BookingSys
             }
         }
 
-        private bool ClassroomBookedOnLesson(int classroom_id, DateTime booking_date, string lesson)
+        public bool ClassroomBookedOnLesson(int classroom_id, DateTime booking_date, string lesson)
         {
             string query = @"SELECT COUNT(*) FROM Bookings 
            WHERE classroom_id = @classroom_id 

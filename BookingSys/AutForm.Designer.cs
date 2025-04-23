@@ -136,8 +136,10 @@
             Controls.Add(AutLogin);
             Controls.Add(ToRegForm);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "AutForm";
-            Text = "AutoForm";
+            Text = "Авторизация";
             FormClosed += AutForm_FormClosed;
             ResumeLayout(false);
             PerformLayout();

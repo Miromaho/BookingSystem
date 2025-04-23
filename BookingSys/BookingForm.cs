@@ -17,10 +17,13 @@ namespace BookingSys
     public partial class BookingForm : Form
     {
         private DataBase _db;
+        private LessonEvent _le;
         public BookingForm()
         {
             _db = new DataBase();
+            _le = new LessonEvent();
             InitializeComponent();
+            _le.InitializeLessonStatusIndicator(this, _db);
         }
 
         private void LoadData(object sender, EventArgs e)
@@ -41,13 +44,14 @@ namespace BookingSys
         private void RentButton_Click(object sender, EventArgs e)
                         => _db.Rent(this);
 
-        private void BookingForm_FormClosed(object sender, FormClosedEventArgs e) 
-                        => Application.Exit();
-
         private void ClassroomsList_MouseMove(object sender, MouseEventArgs e) 
                         => ClassroomsList.DropDownStyle = ComboBoxStyle.DropDownList;
 
         private void Lesson_choice_MouseMove(object sender, MouseEventArgs e) 
                         => Lesson_choice.DropDownStyle = ComboBoxStyle.DropDownList;
+
+        private void BookingForm_FormClosed(object sender, FormClosedEventArgs e)
+                        => Application.Exit();
+
     }
 }
