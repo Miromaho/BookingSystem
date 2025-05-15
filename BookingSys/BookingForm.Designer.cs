@@ -146,6 +146,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "BookingForm";
             Text = "Бронирование аудиторий";
             FormClosed += BookingForm_FormClosed;

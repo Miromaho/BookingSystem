@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using Microsoft.VisualBasic.ApplicationServices;
-using Microsoft.VisualBasic.Logging;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+﻿using Microsoft.Data.SqlClient;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace BookingSys
 {
@@ -19,7 +7,7 @@ namespace BookingSys
     {
         private LessonEvent _le = new LessonEvent();
 
-        internal string ConnectToDB = @"Data Source=DESKTOP-D6PEI4T;Initial Catalog=BookingSystem;Integrated Security=True;TrustServerCertificate=True";
+        internal string ConnectToDB = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Miromaho\source\repos\BookingSys\BookingSys\BSDB.mdf;Integrated Security=True;Connect Timeout=30;";
 
         //------------------Код для формы регистрации пользователя------------------------
         private SqlDataAdapter QueryExecute(string query)
@@ -115,11 +103,12 @@ namespace BookingSys
 
             var dbAdd = new DataBase();
             var getHash = new Hashing();
+            string query = "SELECT * FROM Users WHERE (username = @loginOrEmail OR email = @loginOrEmail) AND password = @password";
 
             using (SqlConnection connection = new SqlConnection(dbAdd.ConnectToDB))
             {
                 connection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT * FROM Users WHERE (username = @loginOrEmail OR email = @loginOrEmail) AND password = @password", connection))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@loginOrEmail", loginOrEmail);
                     command.Parameters.AddWithValue("@password", getHash.Hash(autpass));
@@ -145,6 +134,7 @@ namespace BookingSys
         {
             var loginOrEmail = autform.AutLogin.Text;
             var password = autform.AutPass.Text;
+
             if (loginOrEmail == string.Empty || password == string.Empty)
             {
                 MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
