@@ -7,7 +7,7 @@ namespace BookingSys
     {
         private LessonEvent _le = new LessonEvent();
 
-        internal string ConnectToDB = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Miromaho\source\repos\BookingSys\BookingSys\BSDB.mdf;Integrated Security=True;Connect Timeout=30;";
+        internal string ConnectToDB = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\BSDB.mdf;Integrated Security=True;Connect Timeout=30;";
 
         //------------------Код для формы регистрации пользователя------------------------
         private SqlDataAdapter QueryExecute(string query)
